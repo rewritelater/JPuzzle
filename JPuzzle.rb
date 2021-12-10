@@ -23,7 +23,7 @@ puzzle2 = {
 }
 def printcell(cell)
     if cell == :filled
-        print "x"
+        print "■" # ASCII code 219. There used to be "x" here
     elsif cell == :empty
         print "_"
     elsif cell == :differs
@@ -36,7 +36,6 @@ def printcell(cell)
 end
 
 def magic_formula(znumbers)
-    #print znumbers.class, ": ", znumbers, "\n"
     znumbers.length + znumbers.sum - 1
 end
 
@@ -131,11 +130,11 @@ class JPuzzle
                         return []
                     end
                     line[i] = :empty
+                    
                     #variants.push *find_variants(line, numbers, i)
-                    line2 = line.dup
-                    numbers2 = numbers.dup
+                    
                     puts "idk 117"  if debug# filled number in, check further
-                    return find_variants(line2, numbers2, i)
+                    return find_variants(line.dup, numbers.dup, i)
                 end
             else
                 puts "no 121" if debug # X, but no number
@@ -166,9 +165,9 @@ class JPuzzle
             else
                 #variants.push *find_variants(line, numbers, i+1)
                 puts "idk 148" if debug
-                line2 = line.dup
-                numbers2 = numbers.dup
-                return find_variants(line2, numbers2, i+1)
+                
+                
+                return find_variants(line.dup, numbers.dup, i+1)
             end
 
         elsif line[i] == nil
@@ -184,7 +183,7 @@ class JPuzzle
             variants.push(*var3)
 
             line2[i] = :empty
-            var2 = find_variants(line2, numbers, i)
+            var2 = find_variants(line2, numbers2, i)
             variants.push(*var2)
 
             #puts variants.length
@@ -449,11 +448,11 @@ class Line
 end
 
 
-puzzle = JPuzzle.new puzzle0
+puzzle = JPuzzle.new puzzle1
 puzzle.test
 
 20.times do
-    puzzle.load_lines(puzzle0[:cols],puzzle0[:rows])
+    puzzle.load_lines(puzzle1[:cols],puzzle1[:rows])
     puzzle.test
     break if puzzle.solved?
 end
